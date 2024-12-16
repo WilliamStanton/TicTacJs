@@ -1,0 +1,36 @@
+body {
+    width: 600px;
+    margin: auto;
+    font-family: sans-serif;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header button {
+    height: fit-content;
+    align-self: center;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.board button {
+    outline: none;
+    cursor: pointer;
+    height: 150px;
+    background-color: lightgrey;
+    font-size: 54px;
+    font-weight: lighter;
+    border: 1px solid black;
+}
+
+.board button:hover {
+    animation: ease-in-out 1s;
+    background-color: darkgrey;
+}
