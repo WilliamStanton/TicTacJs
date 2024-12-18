@@ -8,9 +8,20 @@
 <body>
     <div class="header">
         <h1>Tic Tac Toe</h1>
-        <button id="restart">restart</button>
+        <div class="btns">
+            <button id="settings">settings</button>
+            <button id="restart">restart</button>
+        </div>
     </div>
     <div class="board"></div>
+    <dialog id="settingsDialog">
+<!--        <h2>Settings</h2>-->
+        <label for="player1">Player 1 Name</label>
+        <input type="text" id="player1" name="player1" value="Billy">
+        <label for="player2">Player 2 Name</label>
+        <input type="text" id="player2" name="player2" value="Joe">
+        <button id="close">Close</button>
+    </dialog>
 </body>
-<script src="game.js"></script>
+<script type="module" src="main.js"></script>
 </html>

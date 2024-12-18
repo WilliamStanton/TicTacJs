@@ -4,14 +4,15 @@
 class Player {
     constructor(name, init) {
         this.name = name;
-        this.isTurn = (init !== undefined || true) ;
+        this.symbol = (init !== undefined ? 'O' : 'X')
+        this.isTurn = (init !== undefined) ;
     }
 }
 
 /**
  * Game Object
  */
-class Game {
+export default class Game {
     constructor(name1, name2) {
         this.playerOne = new Player(name1, true);
         this.playerTwo = new Player(name2);
@@ -30,7 +31,7 @@ class Game {
             button.addEventListener("click", (evt) => {
                 // only make move if spot is empty and game is still running
                 if (evt.target.innerText === "" && this.status === true)
-                    this.status = this.#updateStatus(this.#move(evt.target.id).name) // make move and update game status
+                    this.status = this.#updateStatus(this.#move(evt.target.id)) // make move and update game status
             });
         })
     }
@@ -42,11 +43,10 @@ class Game {
     #move(spot) {
         // get next player and update spot
         let nextPlayer = this.playerOne.isTurn ? this.playerOne : this.playerTwo;
-        this.board.querySelector(`#${CSS.escape(spot)}`).innerText = nextPlayer.name;
+        this.board.querySelector(`#${CSS.escape(spot)}`).innerText = nextPlayer.symbol;
 
         // negate current players
-        this.playerOne.isTurn = !this.playerOne.isTurn;
-        this.playerTwo.isTurn = !this.playerTwo;
+        [this.playerOne.isTurn, this.playerTwo.isTurn] = [!this.playerOne.isTurn, !this.playerTwo.isTurn]
 
         // return next player up
         return this.playerOne.isTurn ? this.playerOne : this.playerTwo;
@@ -63,7 +63,7 @@ class Game {
         // check for a winner
         let winner = this.#checkWin();
         if (winner !== undefined) {
-            header.innerText = `Winner: ${winner[0].innerText}`; // update header
+            header.innerText = `Winner: ${this.playerOne.name === winner[0].innerText ? this.playerOne.name : this.playerTwo.name} (${winner[0].innerText})`; // update header
 
             // set color for winning spots to yellow
             winner.forEach(spot => {
@@ -89,7 +89,7 @@ class Game {
         }
 
         // else, display next turn and continue game
-        header.innerText = "Next turn: " + nextPlayer;
+        header.innerText = `Next turn: ${nextPlayer.name} (${nextPlayer.symbol})`;
         return true;
     }
 
@@ -122,13 +122,3 @@ class Game {
             return undefined;
     }
 }
-
-// instantiate game
-let game = new Game("X", "O");
-
-// restart game functionality
-document.getElementById('restart').addEventListener('click', () => {
-    game = new Game("X", "O");
-});
-
-

@@ -4,15 +4,29 @@ body {
     font-family: sans-serif;
 }
 
+input {
+    display: block;
+}
+
+#close {
+    margin: 8px 0 0;
+}
+
 .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.header button {
-    height: fit-content;
+.header .btns {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
     align-self: center;
+}
+
+.header .btns button {
+    height: fit-content;
 }
 
 .board {
